@@ -43,8 +43,6 @@ struct rect
     float nota;
 } estud1;*/
 
-const char FILE_NAME[] = "input.txt";
-
 int main() {
 
     //*************************Ejercicio para saber si es Little Endian o Big Endian
@@ -135,7 +133,38 @@ int main() {
     printf("Número de caracteres en %s es %d\n",FILE_NAME,count);
     fclose(in_file);*/
 
+    char FILE_NAME_IN[20];
+    char FILE_NAME_OUT[20]="";
     
+    FILE *in_file; //Archivo de entrada
+    FILE *out_file; //Archivo de salida
+    int ch; //Caracter o bandera de EOF de la entrada
+
+    printf("Ingrese el nombre del archivo que quiere copiar: ");
+    scanf("%s",FILE_NAME_IN);
+
+    in_file = fopen(FILE_NAME_IN,"r");
+    if (in_file == NULL){
+        printf("No se puede abrir %s\n", FILE_NAME_IN);
+        exit(8);
+    }
+    printf("Ingrese el nombre del archivo destino: ");
+    scanf("%s",FILE_NAME_OUT);
+
+    out_file = fopen(FILE_NAME_OUT,"w");
+    if (out_file == NULL){
+        printf("No se puede abrir %s\n", FILE_NAME_OUT);
+        exit(8);
+    }
+    while (!feof(in_file))
+    {
+        ch = fgetc(in_file);
+        if (ch != EOF)
+            fputc(ch, out_file);
+    }
+    printf("Se ha copiado todo el contenido de %s a %s correctamente.\n",FILE_NAME_IN, FILE_NAME_OUT);
+    fclose(in_file);
+    fclose(out_file);
 
     return 0;
 }
