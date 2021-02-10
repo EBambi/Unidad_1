@@ -14,7 +14,7 @@ char nombres[3][20] = {"Fulano", "Mengano", "Perano"};*/
 
 char (*bufferNombre)[20];
 float *bufferNota;
-int *bufferCredito; 
+int *bufferCredito;
 
 int main(void){
 

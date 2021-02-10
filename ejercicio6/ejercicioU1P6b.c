@@ -43,6 +43,22 @@ struct rect
     float nota;
 } estud1;*/
 
+/*char FILE_NAME_IN[20];
+char FILE_NAME_OUT[20];*/
+
+char FILE_NAME[] = "archivoNotas.txt";
+char FILE_NAME_OUT[] = "archivoNotasDef.txt";
+
+struct materia *bufferMaterias;
+
+struct materia
+{
+    char nombre[20];
+    float nota;
+    int credito0;
+};
+
+
 int main() {
 
     //*************************Ejercicio para saber si es Little Endian o Big Endian
@@ -133,10 +149,8 @@ int main() {
     printf("Número de caracteres en %s es %d\n",FILE_NAME,count);
     fclose(in_file);*/
 
-    char FILE_NAME_IN[20];
-    char FILE_NAME_OUT[20]="";
-    
-    FILE *in_file; //Archivo de entrada
+    //*************************Ejercicio copia de archivo origen a archivo destino
+    /*FILE *in_file; //Archivo de entrada
     FILE *out_file; //Archivo de salida
     int ch; //Caracter o bandera de EOF de la entrada
 
@@ -163,6 +177,46 @@ int main() {
             fputc(ch, out_file);
     }
     printf("Se ha copiado todo el contenido de %s a %s correctamente.\n",FILE_NAME_IN, FILE_NAME_OUT);
+    fclose(in_file);
+    fclose(out_file);*/
+
+    FILE *in_file; //Archivo de entrada
+    FILE *out_file; //Archivo de salida
+    int ch; //Caracter o bandera de EOF de la entrada
+    char linea[50];
+    int contLinea = 1, contador = 0;
+    char materia[20];
+    float nota = 0;
+    int *credito = 0;
+    bufferMaterias = malloc(sizeof(materia)*20);
+
+    in_file = fopen(FILE_NAME,"r");
+    if (in_file == NULL){
+        printf("No se puede abrir %s\n", FILE_NAME);
+        exit(8);
+    }
+    out_file = fopen(FILE_NAME_OUT,"w");
+    if (out_file == NULL){
+        printf("No se puede abrir %s\n", FILE_NAME_OUT);
+        exit(8);
+    }
+    while(!feof(in_file)){
+        if (ch != EOF){
+            fscanf(in_file, "%s", linea);
+            if (contLinea = 1)
+                materia[20] = (char (*)[20])linea;
+            else if (contLinea = 2)
+                nota = atof(linea);
+            else if (contLinea = 3){
+                contLinea = 1;
+                credito = (int *)linea;
+                struct materia m = {materia[20],nota,*credito};
+                scanf("%s %f %d", materia[20], &nota, *credito);
+            }
+            contLinea++;
+            //printf("%s\n",linea);
+        }
+    }
     fclose(in_file);
     fclose(out_file);
 
