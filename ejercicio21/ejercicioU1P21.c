@@ -41,6 +41,12 @@ int main(void){
 
     printf("La cantidad de comunes es: %d\n",arrayCommon(pArray1,tam1,pArray2,tam2,pArrayR,tamR));
 
+    for (int i = 0; i < tamR; i++)
+    {
+        printf("Valor #%d del arreglo resultado: %d\n",i+1,*(pArrayR+i));
+    }
+    
+
     return 0;
 }
 
@@ -53,7 +59,7 @@ uint8_t arrayCommon(int32_t* arr1, int32_t arr1Size,int32_t* arr2, int32_t arr2S
     {
         for (int j = 0; j < arr2Size; j++)
         {
-            if (*(arr1+i) = *(arr2+j))
+            if (*(arr1+i) == *(arr2+j))
             {
                 arrCom[i] = *(arr1+i);
                 comun++;
@@ -70,5 +76,6 @@ uint8_t arrayCommon(int32_t* arr1, int32_t arr1Size,int32_t* arr2, int32_t arr2S
     {
         arrCom[i] = *(arrRes+i);
     }
+    
     return comun;
 }
