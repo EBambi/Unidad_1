@@ -10,18 +10,19 @@ struct estudiante
 };
 
 struct estudiante *bufferDB;
-FILE *inFile;
-int ch;
+FILE *inFile, *outFile;
+int ch, numRegis = 0;
 char linea[50];
 
 void mkdb_nombre_tamanno(char nombre[20], int cantRegis);
 
 void loadbl_nombre(char fileName[30]);
 
+void savedb_nombre(char fileName[30]);
+
 int main(void){
 
     char nombreBaseDatos[30], nombreArchivo[30];
-    int numRegis = 0;
 
     printf("Ingresar el nombre de la base de datos:\n");
     scanf("%s", nombreBaseDatos);
@@ -38,7 +39,10 @@ int main(void){
     {
         printf("%d - %s - %d\n", (bufferDB+i)->cedula, (bufferDB+i)->nombre, (bufferDB+i)->semestre);
     }*/
-    
+
+    printf("Ingrese el nombre del archivo de salida:\n");
+    scanf("%s", nombreArchivo);
+    savedb_nombre(nombreArchivo);
 
     return 0;
 }
@@ -70,5 +74,19 @@ void loadbl_nombre(char fileName[30]){
             contLinea++;
         }
     }
-    
+    fclose(inFile);
+}
+
+void savedb_nombre(char fileName[30]){
+
+    int contLinea = 0;
+
+    outFile = fopen(fileName,"w");
+    for (int i = 0; i < numRegis; i++)
+    {
+        fprintf(outFile, "%d %s %d\n", (bufferDB+contLinea)->cedula, (bufferDB+contLinea)->nombre, (bufferDB+contLinea)->semestre);
+        contLinea++;
+    }
+
+    fclose(outFile);
 }
