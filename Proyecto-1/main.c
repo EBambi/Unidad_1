@@ -22,6 +22,8 @@ void savedb_nombre(char fileName[30]);
 
 void readall(struct estudiante *buffer);
 
+int readSize(struct estudiante *buffer);
+
 int main(void){
 
     char nombreBaseDatos[30], nombreArchivo[30];
@@ -48,6 +50,9 @@ int main(void){
 
     printf("-----------------------\n");
     readall(bufferDB);
+
+    printf("-----------------------\n");
+    printf("%d\n",readSize(bufferDB));
 
     return 0;
 }
@@ -100,4 +105,15 @@ void readall(struct estudiante *buffer){
         printf("%d %s %d\n", (buffer+i)->cedula, (buffer+i)->nombre, (buffer+i)->semestre);
     }
     
+}
+
+int readSize(struct estudiante *buffer){
+
+    int cont = 0;
+
+    while ((buffer+cont)->cedula != 0)
+    {
+        cont ++;
+    }
+    return cont-1;
 }
