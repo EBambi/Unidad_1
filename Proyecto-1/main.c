@@ -20,6 +20,8 @@ void loadbl_nombre(char fileName[30]);
 
 void savedb_nombre(char fileName[30]);
 
+void readall(struct estudiante *buffer);
+
 int main(void){
 
     char nombreBaseDatos[30], nombreArchivo[30];
@@ -43,6 +45,9 @@ int main(void){
     printf("Ingrese el nombre del archivo de salida:\n");
     scanf("%s", nombreArchivo);
     savedb_nombre(nombreArchivo);
+
+    printf("-----------------------\n");
+    readall(bufferDB);
 
     return 0;
 }
@@ -79,14 +84,20 @@ void loadbl_nombre(char fileName[30]){
 
 void savedb_nombre(char fileName[30]){
 
-    int contLinea = 0;
-
     outFile = fopen(fileName,"w");
     for (int i = 0; i < numRegis; i++)
     {
-        fprintf(outFile, "%d %s %d\n", (bufferDB+contLinea)->cedula, (bufferDB+contLinea)->nombre, (bufferDB+contLinea)->semestre);
-        contLinea++;
+        fprintf(outFile, "%d %s %d\n", (bufferDB+i)->cedula, (bufferDB+i)->nombre, (bufferDB+i)->semestre);
     }
 
     fclose(outFile);
+}
+
+void readall(struct estudiante *buffer){
+
+    for (int i = 0; i < numRegis; i++)
+    {
+        printf("%d %s %d\n", (buffer+i)->cedula, (buffer+i)->nombre, (buffer+i)->semestre);
+    }
+    
 }
