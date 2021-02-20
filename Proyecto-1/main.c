@@ -26,10 +26,12 @@ int readSize(struct estudiante *buffer);
 
 void mkreg_cedula_nombre_semestre(int cedulaNR, char nombreNR[30], int semestreNR);
 
+void readreg_cedula(int cedulaBuscar);
+
 int main(void){
 
     char nombreBaseDatos[30], nombreArchivo[30], nombreNuevo[30];
-    int cedulaNuevo, semestreNuevo;
+    int cedulaNuevo, semestreNuevo, cedulaBusc;
 
     printf("Ingresar el nombre de la base de datos:\n");
     scanf("%s", nombreBaseDatos);
@@ -62,6 +64,10 @@ int main(void){
 
     printf("-----------------------\n");
     readall(bufferDB);
+
+    printf("Ingrese la cédula del estudiante que busca:\n");
+    scanf("%d",&cedulaBusc);
+    readreg_cedula(cedulaBusc);
 
     return 0;
 }
@@ -148,4 +154,17 @@ void mkreg_cedula_nombre_semestre(int cedulaNR, char nombreNR[30], int semestreN
         }
     }
     //buffer = realloc(bufferDB,sizeof(struct estudiante)*numRegis);
+}
+
+void readreg_cedula(int cedulaBuscar){
+
+    char nombre[30];
+
+    for (int i = 0; i < numRegis; i++)
+    {
+        if ((bufferDB+i)->cedula == cedulaBuscar)
+        {
+            printf("La cédula: %d pertenece a el estudiante %s. semestre: %d\n", (bufferDB+i)->cedula, (bufferDB+i)->nombre, (bufferDB+i)->semestre);
+        }
+    }
 }
