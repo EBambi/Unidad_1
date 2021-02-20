@@ -24,9 +24,12 @@ void readall(struct estudiante *buffer);
 
 int readSize(struct estudiante *buffer);
 
+void mkreg_cedula_nombre_semestre(int cedulaNR, char nombreNR[30], int semestreNR);
+
 int main(void){
 
-    char nombreBaseDatos[30], nombreArchivo[30];
+    char nombreBaseDatos[30], nombreArchivo[30], nombreNuevo[30];
+    int cedulaNuevo, semestreNuevo;
 
     printf("Ingresar el nombre de la base de datos:\n");
     scanf("%s", nombreBaseDatos);
@@ -39,20 +42,26 @@ int main(void){
     scanf("%s", nombreArchivo);
     loadbl_nombre(nombreArchivo);
 
-    /*for (int i = 0; i < numRegis; i++)
-    {
-        printf("%d - %s - %d\n", (bufferDB+i)->cedula, (bufferDB+i)->nombre, (bufferDB+i)->semestre);
-    }*/
-
-    printf("Ingrese el nombre del archivo de salida:\n");
+    /*printf("Ingrese el nombre del archivo de salida:\n");
     scanf("%s", nombreArchivo);
-    savedb_nombre(nombreArchivo);
+    savedb_nombre(nombreArchivo);*/
 
     printf("-----------------------\n");
     readall(bufferDB);
 
+    /*printf("-----------------------\n");
+    printf("%d\n",readSize(bufferDB));*/
+
+    printf("Ingrese la cédula del nuevo registro:\n");
+    scanf("%d",&cedulaNuevo);
+    printf("Ingrese el nombre del nuevo registro:\n");
+    scanf("%s",nombreNuevo);
+    printf("Ingrese el semestre del nuevo registro:\n");
+    scanf("%d",&semestreNuevo);
+    mkreg_cedula_nombre_semestre(cedulaNuevo, nombreNuevo, semestreNuevo);
+
     printf("-----------------------\n");
-    printf("%d\n",readSize(bufferDB));
+    readall(bufferDB);
 
     return 0;
 }
@@ -80,7 +89,7 @@ void loadbl_nombre(char fileName[30]){
         {
             fscanf(inFile, "%d %s %d", &(bufferDB+contLinea)->cedula, (bufferDB+contLinea)->nombre, &(bufferDB+contLinea)->semestre);
             //printf("-%d\n-%s\n-%d\n", cedulaLinea, nombreLinea, semestreLinea);
-            struct estudiante est = {cedulaLinea, nombreLinea[30], semestreLinea};
+            //struct estudiante est = {cedulaLinea, nombreLinea[30], semestreLinea};
             contLinea++;
         }
     }
@@ -100,11 +109,19 @@ void savedb_nombre(char fileName[30]){
 
 void readall(struct estudiante *buffer){
 
-    for (int i = 0; i < numRegis; i++)
+    int cont = 0;
+
+    while ((buffer+cont)->cedula != 0)
     {
-        printf("%d %s %d\n", (buffer+i)->cedula, (buffer+i)->nombre, (buffer+i)->semestre);
+        printf("%d %s %d\n", (buffer+cont)->cedula, (buffer+cont)->nombre, (buffer+cont)->semestre);
+        cont ++;
     }
-    
+
+    /*for (int i = 0; i < numRegis; i++)
+    {
+        printf("%d %s %d\n", (buffer+i)->cedula, (buffer+i)->nombre, (buffer+i)->semestre);        
+    }*/
+
 }
 
 int readSize(struct estudiante *buffer){
@@ -116,4 +133,19 @@ int readSize(struct estudiante *buffer){
         cont ++;
     }
     return cont-1;
+}
+
+void mkreg_cedula_nombre_semestre(int cedulaNR, char nombreNR[30], int semestreNR){
+
+    for (int i = 0; i < numRegis; i++)
+    {
+        if ((bufferDB+i)->cedula == 0)
+        {
+            (bufferDB+i)->cedula = cedulaNR;
+            strcpy((bufferDB+i)->nombre,nombreNR);
+            (bufferDB+i)->semestre = semestreNR;
+            break;
+        }
+    }
+    //buffer = realloc(bufferDB,sizeof(struct estudiante)*numRegis);
 }
