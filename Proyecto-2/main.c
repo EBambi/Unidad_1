@@ -46,6 +46,8 @@ void sdb_nombre(char nombre[20]);
 
 void svdb();
 
+void radb();
+
 void exitD(char fileName[30]);
 
 int main(void){
@@ -121,6 +123,15 @@ int main(void){
             printf("Ingrese el nombre de la base de datos que desea cambiar:\n");
             scanf("%s",nombreDBActiva);
             sdb_nombre(nombreDBActiva);
+        }
+        else if (strcmp(comando,"svdb") == 0)
+        {
+            svdb();
+            printf("Se guardó la base de datos %s en un archivo\n",ptrBaseActiva->nombre);
+        }
+        else if (strcmp(comando,"radb") == 0)
+        {
+            radb();
         }
         
         else if (strcmp(comando,"exit") == 0)
@@ -275,17 +286,25 @@ void sdb_nombre(char nombre[20]){
     }    
 }
 
-/*void svdb(){
+void svdb(){
 
-
+    char fileName[20];
+    strcpy(fileName,ptrBaseActiva->nombre);
     outFile = fopen(fileName,"w");
-    for (int i = 0; i < numRegis; i++)
+    for (int i = 0; i < ptrBaseActiva->size; i++)
     {
         fprintf(outFile, "%d %s %d\n", (bufferDB+i)->cedula, (bufferDB+i)->nombre, (bufferDB+i)->semestre);
     }
 
     fclose(outFile);
-}*/
+}
+
+void radb(){
+    for (int i = 0; i < ptrBaseActiva->size; i++)
+    {
+        printf("%s %d %d\n", ((ptrBaseActiva->ptrRegistros)+i)->nombre, ((ptrBaseActiva->ptrRegistros)+i)->cedula, ((ptrBaseActiva->ptrRegistros)+i)->semestre);
+    }
+}
 
 void exitD(char fileName[30]){
     savedb_nombre(fileName);
