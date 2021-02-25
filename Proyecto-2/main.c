@@ -325,9 +325,13 @@ void svdb(){
 }
 
 void radb(){
-    for (int i = 0; i < ptrBaseActiva->size; i++)
+
+    int cont = 0;
+
+    while (((ptrBaseActiva->ptrRegistros)+cont)->cedula != 0)
     {
-        printf("%s %d %d\n", ((ptrBaseActiva->ptrRegistros)+i)->nombre, ((ptrBaseActiva->ptrRegistros)+i)->cedula, ((ptrBaseActiva->ptrRegistros)+i)->semestre);
+        printf("%s %d %d\n", ((ptrBaseActiva->ptrRegistros)+cont)->nombre, ((ptrBaseActiva->ptrRegistros)+cont)->cedula, ((ptrBaseActiva->ptrRegistros)+cont)->semestre);
+        cont ++;
     }
 }
 
