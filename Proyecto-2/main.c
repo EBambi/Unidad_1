@@ -48,6 +48,12 @@ void svdb();
 
 void radb();
 
+void rsdb();
+
+void mreg_cedula_nombre_semestre(int cedulaN, char nombreN[20], int semestre);
+
+void rr_cedula(int cedulaN);
+
 void exitD(char fileName[30]);
 
 int main(void){
@@ -132,6 +138,26 @@ int main(void){
         else if (strcmp(comando,"radb") == 0)
         {
             radb();
+        }
+        else if (strcmp(comando,"rsdb") == 0)
+        {
+            rsdb();
+        }
+        else if (strcmp(comando,"mreg") == 0)
+        {
+            printf("Ingrese la cédula del nuevo registro:\n");
+            scanf("%d",&cedulaNuevo);
+            printf("Ingrese el nombre del nuevo registro:\n");
+            scanf("%s",nombreNuevo);
+            printf("Ingrese el semestre del nuevo registro:\n");
+            scanf("%d",&semestreNuevo);
+            mreg_cedula_nombre_semestre(cedulaNuevo, nombreNuevo, semestreNuevo);
+        }
+        else if (strcmp(comando,"rr") == 0)
+        {
+            printf("Ingrese la cédula del estudiante que busca:\n");
+            scanf("%d",&cedulaBusc);
+            rr_cedula(cedulaBusc);
         }
         
         else if (strcmp(comando,"exit") == 0)
@@ -237,7 +263,6 @@ void mkreg_cedula_nombre_semestre(int cedulaNR, char nombreNR[30], int semestreN
             break;
         }
     }
-    //buffer = realloc(bufferDB,sizeof(struct estudiante)*numRegis);
 }
 
 void readreg_cedula(int cedulaBuscar){
@@ -303,6 +328,32 @@ void radb(){
     for (int i = 0; i < ptrBaseActiva->size; i++)
     {
         printf("%s %d %d\n", ((ptrBaseActiva->ptrRegistros)+i)->nombre, ((ptrBaseActiva->ptrRegistros)+i)->cedula, ((ptrBaseActiva->ptrRegistros)+i)->semestre);
+    }
+}
+
+void rsdb(){
+    printf("La cantidad de registros es %d\n",ptrBaseActiva->size);
+}
+
+void mreg_cedula_nombre_semestre(int cedulaN, char nombreN[20], int semestre){
+    for (int i = 0; i < ptrBaseActiva->size; i++)
+    {
+        if(((ptrBaseActiva->ptrRegistros)+i)->cedula == 0){
+            ((ptrBaseActiva->ptrRegistros)+i)->cedula = cedulaN;
+            strcpy(((ptrBaseActiva->ptrRegistros)+i)->nombre,nombreN);
+            ((ptrBaseActiva->ptrRegistros)+i)->semestre = semestre;
+            break;
+        }
+    }
+}
+
+void rr_cedula(int cedulaN){
+    for (int i = 0; i < ptrBaseActiva->size; i++)
+    {
+        if(((ptrBaseActiva->ptrRegistros)+i)->cedula == cedulaN){
+            printf("Nombre: %s\nCédula: %d\nSemestre: %d\n",((ptrBaseActiva->ptrRegistros)+i)->nombre, ((ptrBaseActiva->ptrRegistros)+i)->cedula, ((ptrBaseActiva->ptrRegistros)+i)->semestre);
+            break;
+        }
     }
 }
 
