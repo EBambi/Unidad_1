@@ -83,39 +83,6 @@ int main(void){
             loadbl_nombre(nombreArchivo);
             printf("El archivo fue cargado correctamente\n");
         }
-        else if (strcmp(comando,"savedb") == 0)
-        {
-            printf("Ingrese el nombre del archivo de salida:\n");
-            scanf("%s", nombreArchivo);
-            savedb_nombre(nombreArchivo);
-            printf("El archivo fue guardado correctamente\n");
-        }
-        else if (strcmp(comando,"readall") == 0)
-        {
-            printf("-----------------------\n");
-            readall(bufferDB);
-            printf("-----------------------\n");
-        }
-        else if (strcmp(comando,"readsize") == 0)
-        {
-            printf("%d\n",readSize(bufferDB));
-        }
-        else if (strcmp(comando,"mkreg") == 0)
-        {
-            printf("Ingrese la cédula del nuevo registro:\n");
-            scanf("%d",&cedulaNuevo);
-            printf("Ingrese el nombre del nuevo registro:\n");
-            scanf("%s",nombreNuevo);
-            printf("Ingrese el semestre del nuevo registro:\n");
-            scanf("%d",&semestreNuevo);
-            mkreg_cedula_nombre_semestre(cedulaNuevo, nombreNuevo, semestreNuevo);
-        }
-        else if (strcmp(comando,"readreg") == 0)
-        {
-            printf("Ingrese la cédula del estudiante que busca:\n");
-            scanf("%d",&cedulaBusc);
-            readreg_cedula(cedulaBusc);
-        }
         else if (strcmp(comando,"lsdbs") == 0)
         {
             lsdbs();
@@ -162,13 +129,13 @@ int main(void){
         
         else if (strcmp(comando,"exit") == 0)
         {
-            printf("¿Desea guardar la base de datos antes de salir?\n(Sí = 1 --- No = 2)\n");
+            printf("¿Desea guardar la base de %s datos antes de salir?\n(Sí = 1 --- No = 2)\n",ptrBaseActiva->nombre);
             scanf("%d", &dec);
             if (dec == 1)
             {
                 printf("Ingrese el nombre del archivo de salida:\n");
                 scanf("%s", nombreArchivo);
-                savedb_nombre(nombreArchivo);
+                exitD(nombreArchivo);
             }
             else break;
         }
@@ -217,6 +184,8 @@ void loadbl_nombre(char fileName[30]){
     }
     fclose(inFile);
 }
+
+//Funciones del proyecto 1 que no deberían funcionar
 
 void savedb_nombre(char fileName[30]){
 
@@ -278,6 +247,8 @@ void readreg_cedula(int cedulaBuscar){
     }
 }
 
+//**************************************************
+
 void lsdbs(){
     int i = 0;
     printf("---Bases Cargadas en Memoria---\n");
@@ -336,7 +307,7 @@ void radb(){
 }
 
 void rsdb(){
-    printf("La cantidad de registros es %d\n",ptrBaseActiva->size);
+    printf("La cantidad de registros de la base de datos es: %d\n",ptrBaseActiva->size);
 }
 
 void mreg_cedula_nombre_semestre(int cedulaN, char nombreN[20], int semestre){
@@ -364,4 +335,3 @@ void rr_cedula(int cedulaN){
 void exitD(char fileName[30]){
     savedb_nombre(fileName);
 }
-
