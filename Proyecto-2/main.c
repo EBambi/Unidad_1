@@ -312,7 +312,7 @@ void rsdb(){
     {
         cantFull++;
     }
-    printf("Registros Disponibles: %d\n",ptrBaseActiva->size - cantFull);
+    printf("Registros de la base de datos activa: %d\n",cantFull);
 }
 
 void mreg_cedula_nombre_semestre(int cedulaN, char nombreN[20], int semestre){
