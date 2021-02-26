@@ -98,7 +98,7 @@ int main(void){
             {
                 printf("Ingrese el nombre del archivo de salida:\n");
                 scanf("%s", nombreArchivo);
-                savedb_nombre(nombreArchivo);
+                exitD(nombreArchivo);
             }
             else break;
         }
