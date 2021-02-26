@@ -307,7 +307,12 @@ void radb(){
 }
 
 void rsdb(){
-    printf("La cantidad de registros de la base de datos es: %d\n",ptrBaseActiva->size);
+    int cantFull = 0;
+    while (((ptrBaseActiva->ptrRegistros)+cantFull)->cedula != 0)
+    {
+        cantFull++;
+    }
+    printf("Registros Disponibles: %d\n",ptrBaseActiva->size - cantFull);
 }
 
 void mreg_cedula_nombre_semestre(int cedulaN, char nombreN[20], int semestre){
